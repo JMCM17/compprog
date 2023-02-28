@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Batangas State University Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        .background {
+            background: url({{background}});
+            background-size: cover;
+            background-position: center;
+        }
+
+        .w-40 {
+            width: 40%;
+        }
+
+        #red_spartan {
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="vh-100 d-flex justify-content-center align-items-center bg-dark-subtle">
+        <!-- Background image -->
+        <div class="w-75 h-75 rounded-5 background row justify-content-around">
+            <div class="col-lg-4 col-sm-12">
+                <!-- img/ BatStateU/ TNEU  -->
+            </div>
+
+            <!-- Log in section -->
+            <div class="bg-light bg-opacity-75 h-75 rounded-5 position-relative col-lg-4 col-sm-10 align-self-center">
+                <img id="red_spartan"
+                    src="https://batstate-u.edu.ph/wp-content/uploads/2020/09/batstateu-redspartan-235x300.png" alt=""
+                    class="position-absolute top-0 start-50 translate-middle">
+
+                <div class="h-100 d-flex flex-column justify-content-around w-75 mx-auto">
+                    <div class="d-flex justify-content-center align-items-center pt-5">
+                        <h3 class="me-3 my-auto">LOGIN AS</h3>
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                            <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Student
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Instructor</a></li>
+                                <li><a class="dropdown-item" href="#">Administrator</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">College Applicant</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <form action="handle_form" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username or EDU email</label>
+                            <input type="text" name="username" id="username" class="form-control form-control-lg"
+                                required>
+                        </div>
+
+                        <div class="mb-1">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" id="password" class="form-control form-control-lg"
+                                required>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input type="checkbox" name="remember_me" id="remember_me" class="form-check-input">
+                            <label for="remember_me" class="form-check-label">Remember me</label>
+                            <a href="#" class="float-end text-danger" data-bs-toggle="modal"
+                                data-bs-target="#forgot_password_modal">Forgot Password?</a>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-danger" type="submit">Sign in</button>
+                            <button class="btn btn-light" type="button">Sign in with Google</button>
+                        </div>
+                    </form>
+
+                    <div class="d-flex">
+                        <p>Want to be a Red Spartan? <a href="#" class="text-danger">Apply Now!</a></p>
+                        <a href="#" class="ms-auto text-danger float-end" data-bs-toggle="modal"
+                            data-bs-target="#contact_modal">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgot_password_modal" tabindex="-1" aria-labelledby="forgot_password_modal_label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="forgot_password_modal_label">Forgot Password
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">Enter your registered email address below. An email will be sent to this address for
+                        password reset confirmation</p>
+                    <form action="">
+                        <input type="email" name="email" id="email" placeholder="Email Address"
+                            class="form-control mb-3">
+                        <p class="muted">* If you do not receive the confirmation email within a few minutes after
+                            submit, please check your Spam folder.</p>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contact_modal" tabindex="-1" aria-labelledby="contact_modal_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="contact_modal_label">ICT Services Email Addresses
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">For any portal login concerns contact us through the following
+                        email addresses:</p>
+                    <table class="table table-danger table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Campus</th>
+                                <th scope="col">Email address</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+
+                            {% for campus, email in campuses.items(): %}
+                            <tr>
+                                <td scope="row">{{ campus }}</td>
+                                <td>{{ email }}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
